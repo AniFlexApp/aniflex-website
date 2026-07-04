@@ -27,6 +27,7 @@
 <!-- ===== HERO ===== -->
 <header class="hero" id="top">
   <div class="hud-grid" aria-hidden="true"></div>
+  <img class="sticker s-hero" src="assets/stickers/levi.webp" alt="" aria-hidden="true">
   <div class="hero-inner">
     <img class="hero-logo" src="assets/img/logo_white.png" alt="AniFlex logo">
     <h1 class="hero-title">ANI<span class="accent-cyan">FLEX</span></h1>
@@ -40,12 +41,13 @@
         <img src="assets/img/badge_google_play.png" alt="Get it on Google Play" class="badge badge-play">
       </a>
     </div>
-    <a class="hero-cta" href="#forge">▼ Forge your hero below</a>
+    <a class="hero-cta" href="#forge"><span class="tri">▼</span> Forge your hero below <span class="tri">▼</span></a>
   </div>
 </header>
 
 <!-- ===== FORGE YOUR HERO ===== -->
 <section class="forge" id="forge">
+  <img class="sticker s-forge" src="assets/stickers/nezuko.webp" alt="" aria-hidden="true">
   <h2 class="section-title"><span class="accent-violet">FORGE</span> YOUR HERO</h2>
   <p class="section-sub">Build your avatar, then roll the same dice every new AniFlex hero rolls.</p>
 
@@ -75,6 +77,26 @@
       <div class="control-row">
         <span class="control-label">COLOR</span>
         <div class="swatches" id="hair-colors"></div>
+      </div>
+      <div class="control-row control-row-top">
+        <span class="control-label">TOP</span>
+        <div class="chip-row" id="top-styles"></div>
+      </div>
+      <div class="control-row control-row-top">
+        <span class="control-label">BOTTOM</span>
+        <div class="chip-row" id="bottom-styles"></div>
+      </div>
+      <div class="control-row control-row-top">
+        <span class="control-label">AURA</span>
+        <div class="chip-row" id="aura-styles"></div>
+      </div>
+      <div class="control-row control-row-top">
+        <span class="control-label">WINGS</span>
+        <div class="chip-row" id="wing-styles"></div>
+      </div>
+      <div class="control-row control-row-top">
+        <span class="control-label">BOLT</span>
+        <div class="chip-row" id="lightning-styles"></div>
       </div>
 
       <button class="roll-btn" id="roll-btn">
@@ -106,7 +128,7 @@
       <div class="ascend">
         <button class="ascend-btn" id="ascend-btn">BEGIN YOUR ASCENT</button>
         <button class="reroll-btn" id="reroll-btn">↻ Roll again</button>
-        <p class="upsell">Full customization — hairstyles, auras, wings, and anime-inspired looks — awaits inside the app.</p>
+        <p class="upsell">There are a lot more customization options within the app.</p>
       </div>
     </div>
   </div>
@@ -114,6 +136,8 @@
 
 <!-- ===== FEATURES ===== -->
 <section class="features" id="features">
+  <img class="sticker s-feat1" src="assets/stickers/zoro.webp" alt="" aria-hidden="true">
+  <img class="sticker s-feat2" src="assets/stickers/allmight.webp" alt="" aria-hidden="true">
   <h2 class="section-title">YOUR TRAINING IS THE <span class="accent-ember">STORYLINE</span></h2>
 
   <div class="feature-row">
@@ -182,7 +206,11 @@
       <h3 class="feature-title accent-gold">The Demon King's Spire</h3>
       <p>A 100-floor tower of escalating battles. Your class passive and special ability — powered by your real training — decide how far you climb.</p>
     </div>
-    <div class="phone-frame"><img src="assets/img/shot_07.webp" alt="Battle stats radar chart" loading="lazy"></div>
+    <div class="video-frame">
+      <video src="assets/video/spire_castle.mp4" poster="assets/video/spire_castle_poster.webp"
+             autoplay muted loop playsinline preload="metadata"
+             aria-label="Animated Demon King's Spire castle"></video>
+    </div>
   </div>
 
   <div class="feature-row reverse">
@@ -202,8 +230,25 @@
   </div>
 </section>
 
+<!-- ===== STREAK PET ===== -->
+<section class="pet-section" id="pet">
+  <img class="sticker s-pet" src="assets/stickers/koro.webp" alt="" aria-hidden="true">
+  <div class="pet-inner">
+    <div class="pet-stage">
+      <div class="pet-shadow" aria-hidden="true"></div>
+      <img class="pet-egg" src="assets/img/pet_egg.webp" alt="A streak companion egg, rocking as if about to hatch">
+    </div>
+    <div class="pet-copy">
+      <h2 class="section-title" style="text-align:left">HATCH A <span class="accent-violet">COMPANION</span></h2>
+      <p>Every day you train feeds the creature waiting inside the shell. Hold your streak and it cracks, hatches, and evolves right alongside you — through stage after stage. Miss too many days and it goes dormant. Your consistency is the only thing that makes it grow.</p>
+      <p class="pet-tag">Keep the streak alive. See what it becomes.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ===== FINAL CTA ===== -->
 <section class="final-cta">
+  <img class="sticker s-cta" src="assets/stickers/goku.webp" alt="" aria-hidden="true">
   <h2 class="section-title">YOUR ASCENT <span class="accent-violet">STARTS NOW</span></h2>
   <p class="section-sub">Free to download. Your first roll is waiting.</p>
   <div class="store-buttons">

@@ -5,6 +5,10 @@
   'use strict';
 
   // ---------- Avatar builder ----------
+  // Layers are separate transparent WebP sprites stacked in the app's real
+  // z-order (see avatar_builder.dart): aura → wings → skin → brows → eyes →
+  // mouth → bottoms → top → hair → shoes → lightning. All share one 380×522
+  // (0.728) frame, so CSS object-fit:contain registers them pixel-for-pixel.
   var AV = 'assets/avatar/';
   // Shared hair dye set — all six exist on the app CDN for every style below.
   var HAIR_COLORS = [
@@ -15,6 +19,23 @@
     { key: 'purple', css: '#9a4dff' },
     { key: 'pink', css: '#f06bb8' }
   ];
+  // Effects live under the app's common/ path — same file for both genders.
+  var AURAS = [
+    { key: '', label: 'None' },
+    { key: 'blue', label: 'Blue' },
+    { key: 'purple', label: 'Violet' },
+    { key: 'red', label: 'Ember' }
+  ];
+  var WINGS = [
+    { key: '', label: 'None' },
+    { key: 'angel', label: 'Angel' },
+    { key: 'energy', label: 'Energy' }
+  ];
+  var BOLTS = [
+    { key: '', label: 'None' },
+    { key: 'blue', label: 'Blue' },
+    { key: 'purple', label: 'Violet' }
+  ];
   var CONFIG = {
     male: {
       hair: [
@@ -23,11 +44,13 @@
         { key: 'sharp_fade', label: 'Sharp Fade' },
         { key: 'buzz_cut', label: 'Buzz Cut' },
         { key: 'ponytail', label: 'Ponytail' },
-        { key: 'shaggy', label: 'Shaggy' }
+        { key: 'shaggy', label: 'Shaggy' },
+        { key: 'cyber_fade', label: 'Cyber Fade' },
+        { key: 'sleek_straight', label: 'Sleek' }
       ],
       hairColors: HAIR_COLORS,
-      top: 'male_top_tank_top.webp',
-      bottom: 'male_bottom_shorts.webp',
+      tops: [{ key: 'tank_top', label: 'Tank' }, { key: 'workout_hoodie', label: 'Hoodie' }],
+      bottoms: [{ key: 'shorts', label: 'Shorts' }, { key: 'sweats', label: 'Sweats' }],
       shoes: 'male_shoes_sneakers.webp',
       eyes: 'male_eyes_friendly_brown.webp',
       brows: 'male_brows_normal.webp',
@@ -40,11 +63,13 @@
         { key: 'layered_bob', label: 'Bob' },
         { key: 'high_bun', label: 'High Bun' },
         { key: 'curly_fro', label: 'Curls' },
-        { key: 'double_buns', label: 'Double Buns' }
+        { key: 'double_buns', label: 'Double Buns' },
+        { key: 'tousled_waves', label: 'Waves' },
+        { key: 'sleek_straight', label: 'Sleek' }
       ],
       hairColors: HAIR_COLORS,
-      top: 'female_top_crop_top.webp',
-      bottom: 'female_bottom_leggings.webp',
+      tops: [{ key: 'crop_top', label: 'Crop' }, { key: 'shirt', label: 'Shirt' }],
+      bottoms: [{ key: 'leggings', label: 'Leggings' }, { key: 'shorts', label: 'Shorts' }],
       shoes: 'female_shoes_sneakers.webp',
       eyes: 'female_eyes_friendly_brown.webp',
       brows: 'female_brows_normal.webp',
@@ -58,55 +83,86 @@
   ];
   var VISIBLE_HAIR = 3; // first N styles shown; rest live behind the "More" toggle
 
-  var state = { gender: 'male', skin: 'medium', hairStyle: 'samurai', hairColor: 'black', hairExpanded: false };
+  var state = {
+    gender: 'male', skin: 'medium',
+    hairStyle: 'samurai', hairColor: 'black', hairExpanded: false,
+    top: 'tank_top', bottom: 'shorts',
+    aura: '', wing: '', lightning: ''
+  };
 
   var canvas = document.getElementById('avatar-canvas');
-  var skinWrap = document.getElementById('skin-swatches');
-  var hairWrap = document.getElementById('hair-styles');
-  var colorWrap = document.getElementById('hair-colors');
 
   function renderAvatar() {
     var g = state.gender;
     var c = CONFIG[g];
-    // Z-order mirrors the app: body → clothing → eyebrows → eyes → mouth → hair
-    var layers = [
-      g + '_skin_' + state.skin + '.webp',
-      c.bottom, c.top, c.shoes,
-      c.brows, c.eyes, c.mouth,
-      g + '_hair_' + state.hairStyle + '_' + state.hairColor + '.webp'
-    ];
+    var layers = []; // {f: file, c: optional css class}
+    if (state.aura) layers.push({ f: 'fx_aura_' + state.aura + '.webp', c: 'lyr-aura' });
+    if (state.wing) layers.push({ f: 'fx_wings_' + state.wing + '.webp', c: 'lyr-wings' });
+    layers.push({ f: g + '_skin_' + state.skin + '.webp' });
+    layers.push({ f: c.brows }, { f: c.eyes }, { f: c.mouth });
+    layers.push({ f: g + '_bottom_' + state.bottom + '.webp' });
+    layers.push({ f: g + '_top_' + state.top + '.webp' });
+    layers.push({ f: g + '_hair_' + state.hairStyle + '_' + state.hairColor + '.webp' });
+    layers.push({ f: c.shoes });
+    if (state.lightning) layers.push({ f: 'fx_lightning_' + state.lightning + '.webp', c: 'lyr-bolt' });
+
     canvas.innerHTML = '';
-    layers.forEach(function (file) {
+    layers.forEach(function (L) {
       var img = document.createElement('img');
-      img.src = AV + file;
+      img.src = AV + L.f;
+      if (L.c) img.className = L.c;
       img.alt = '';
       img.draggable = false;
       canvas.appendChild(img);
     });
   }
 
+  // Generic chip-row selector. items: [{key,label}]. getSel/setSel operate on state.
+  function buildChips(wrapId, items, getSel, setSel) {
+    var wrap = document.getElementById(wrapId);
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    items.forEach(function (it) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip' + (it.key === getSel() ? ' active' : '');
+      b.textContent = it.label;
+      b.onclick = function () { setSel(it.key); buildControls(); renderAvatar(); };
+      wrap.appendChild(b);
+    });
+  }
+
+  function buildSwatches(wrapId, items, getSel, setSel, labelPrefix) {
+    var wrap = document.getElementById(wrapId);
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    items.forEach(function (s) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'swatch' + (s.key === getSel() ? ' active' : '');
+      b.style.background = s.css;
+      b.setAttribute('aria-label', labelPrefix + ' ' + s.key);
+      b.onclick = function () { setSel(s.key); buildControls(); renderAvatar(); };
+      wrap.appendChild(b);
+    });
+  }
+
   function buildControls() {
     var c = CONFIG[state.gender];
 
-    skinWrap.innerHTML = '';
-    SKINS.forEach(function (s) {
-      var b = document.createElement('button');
-      b.className = 'swatch' + (s.key === state.skin ? ' active' : '');
-      b.style.background = s.css;
-      b.setAttribute('aria-label', 'Skin tone ' + s.key);
-      b.onclick = function () { state.skin = s.key; buildControls(); renderAvatar(); };
-      skinWrap.appendChild(b);
-    });
+    buildSwatches('skin-swatches', SKINS,
+      function () { return state.skin; }, function (v) { state.skin = v; }, 'Skin tone');
 
+    // Hair styles — expandable (first 3 + "More" toggle)
+    var hairWrap = document.getElementById('hair-styles');
     hairWrap.innerHTML = '';
     var selIdx = 0;
     c.hair.forEach(function (h, i) { if (h.key === state.hairStyle) selIdx = i; });
-    // Keep the panel open if the active style lives in the hidden group,
-    // so the active chip is never invisible.
     var expanded = state.hairExpanded || selIdx >= VISIBLE_HAIR;
     c.hair.forEach(function (h, idx) {
       if (idx >= VISIBLE_HAIR && !expanded) return;
       var b = document.createElement('button');
+      b.type = 'button';
       b.className = 'chip' + (h.key === state.hairStyle ? ' active' : '');
       b.textContent = h.label;
       b.onclick = function () { state.hairStyle = h.key; buildControls(); renderAvatar(); };
@@ -122,15 +178,18 @@
       hairWrap.appendChild(toggle);
     }
 
-    colorWrap.innerHTML = '';
-    c.hairColors.forEach(function (hc) {
-      var b = document.createElement('button');
-      b.className = 'swatch' + (hc.key === state.hairColor ? ' active' : '');
-      b.style.background = hc.css;
-      b.setAttribute('aria-label', 'Hair color ' + hc.key);
-      b.onclick = function () { state.hairColor = hc.key; buildControls(); renderAvatar(); };
-      colorWrap.appendChild(b);
-    });
+    buildSwatches('hair-colors', c.hairColors,
+      function () { return state.hairColor; }, function (v) { state.hairColor = v; }, 'Hair color');
+    buildChips('top-styles', c.tops,
+      function () { return state.top; }, function (v) { state.top = v; });
+    buildChips('bottom-styles', c.bottoms,
+      function () { return state.bottom; }, function (v) { state.bottom = v; });
+    buildChips('aura-styles', AURAS,
+      function () { return state.aura; }, function (v) { state.aura = v; });
+    buildChips('wing-styles', WINGS,
+      function () { return state.wing; }, function (v) { state.wing = v; });
+    buildChips('lightning-styles', BOLTS,
+      function () { return state.lightning; }, function (v) { state.lightning = v; });
   }
 
   document.querySelectorAll('#gender-toggle .toggle-btn').forEach(function (btn) {
@@ -139,7 +198,11 @@
       btn.classList.add('active');
       state.gender = btn.dataset.gender;
       var c = CONFIG[state.gender];
+      // Reset gender-specific selections to that gender's defaults; keep effects.
       state.hairStyle = c.hair[0].key;
+      state.hairExpanded = false;
+      state.top = c.tops[0].key;
+      state.bottom = c.bottoms[0].key;
       if (!c.hairColors.some(function (hc) { return hc.key === state.hairColor; })) {
         state.hairColor = c.hairColors[0].key;
       }
