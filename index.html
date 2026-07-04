@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AniFlex — Train Like an Anime Hero</title>
+<meta name="description" content="AniFlex turns your real workouts into an anime RPG. Roll your stats, forge your hero, climb the Demon King's Spire, and rank up from E to S.">
+<meta property="og:title" content="AniFlex — Train Like an Anime Hero">
+<meta property="og:description" content="Every rep earns power. Real workouts, anime RPG progression: 48 classes, a 100-floor tower, and a community of heroes.">
+<meta property="og:image" content="assets/img/shot_02.webp">
+<link rel="icon" type="image/png" href="assets/img/logo_white.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Exo+2:wght@300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="top">
+  <div class="hud-grid" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <img class="hero-logo" src="assets/img/logo_white.png" alt="AniFlex logo">
+    <h1 class="hero-title">ANI<span class="accent-cyan">FLEX</span></h1>
+    <p class="hero-tag">Every rep earns power.</p>
+    <p class="hero-sub">The fitness RPG where real workouts level a real hero. Roll your stats, earn your class, and climb the Demon King's Spire — one training session at a time.</p>
+    <div class="store-buttons" id="store-buttons">
+      <a href="https://apps.apple.com/app/id6670243420" target="_blank" rel="noopener" aria-label="Download on the App Store">
+        <img src="assets/img/badge_app_store.svg" alt="Download on the App Store" class="badge">
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.anyflex.dev" target="_blank" rel="noopener" aria-label="Get it on Google Play">
+        <img src="assets/img/badge_google_play.png" alt="Get it on Google Play" class="badge badge-play">
+      </a>
+    </div>
+    <a class="hero-cta" href="#forge">▼ Forge your hero below</a>
+  </div>
+</header>
+
+<!-- ===== FORGE YOUR HERO ===== -->
+<section class="forge" id="forge">
+  <h2 class="section-title"><span class="accent-violet">FORGE</span> YOUR HERO</h2>
+  <p class="section-sub">Build your avatar, then roll the same dice every new AniFlex hero rolls.</p>
+
+  <div class="forge-panel">
+    <div class="avatar-stage">
+      <div class="avatar-glow" aria-hidden="true"></div>
+      <div class="avatar-canvas" id="avatar-canvas" aria-label="Your avatar preview"></div>
+      <div class="scan-overlay" id="scan-overlay" aria-hidden="true"></div>
+    </div>
+
+    <div class="forge-controls">
+      <div class="control-row">
+        <span class="control-label">HERO</span>
+        <div class="toggle" id="gender-toggle" role="group" aria-label="Choose gender">
+          <button class="toggle-btn active" data-gender="male">MALE</button>
+          <button class="toggle-btn" data-gender="female">FEMALE</button>
+        </div>
+      </div>
+      <div class="control-row">
+        <span class="control-label">SKIN</span>
+        <div class="swatches" id="skin-swatches"></div>
+      </div>
+      <div class="control-row">
+        <span class="control-label">HAIR</span>
+        <div class="chip-row" id="hair-styles"></div>
+      </div>
+      <div class="control-row">
+        <span class="control-label">COLOR</span>
+        <div class="swatches" id="hair-colors"></div>
+      </div>
+
+      <button class="roll-btn" id="roll-btn">
+        <span class="roll-btn-label">ROLL YOUR STATS</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Stat + class reveal -->
+  <div class="reveal hidden" id="reveal">
+    <div class="stat-grid" id="stat-grid"></div>
+    <div class="class-card" id="class-card">
+      <div class="class-card-corner tl"></div><div class="class-card-corner tr"></div>
+      <div class="class-card-corner bl"></div><div class="class-card-corner br"></div>
+      <p class="class-eyebrow">CLASS ASSIGNED</p>
+      <h3 class="class-name" id="class-name"></h3>
+      <p class="class-flavor" id="class-flavor"></p>
+      <div class="class-kit">
+        <div class="kit-block">
+          <p class="kit-label">PASSIVE — <span id="passive-name"></span></p>
+          <p class="kit-text" id="passive-text"></p>
+        </div>
+        <div class="kit-block">
+          <p class="kit-label kit-label-special">SPECIAL — <span id="special-name"></span></p>
+          <p class="kit-text" id="special-text"></p>
+        </div>
+      </div>
+      <p class="class-evolve" id="class-evolve"></p>
+      <div class="ascend">
+        <button class="ascend-btn" id="ascend-btn">BEGIN YOUR ASCENT</button>
+        <button class="reroll-btn" id="reroll-btn">↻ Roll again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features" id="features">
+  <h2 class="section-title">YOUR TRAINING IS THE <span class="accent-ember">STORYLINE</span></h2>
+
+  <div class="feature-row">
+    <div class="feature-text">
+      <h3 class="feature-title accent-cyan">Every Workout Moves You Forward</h3>
+      <p>Log sets and reps and watch five battle stats — STR, AGL, POW, BAL, STA — climb in real time. Your Power Level is earned in the gym, not bought.</p>
+    </div>
+    <div class="phone-frame"><img src="assets/img/shot_01.webp" alt="Workout tracking screen with live stat gains" loading="lazy"></div>
+  </div>
+
+  <div class="feature-row reverse">
+    <div class="feature-text">
+      <h3 class="feature-title accent-violet">48 Classes. One Is Yours.</h3>
+      <p>Your stat spread forges your class — Brawler, Blitzer, Berserker, Windrunner and twelve more base kits, each evolving through three tiers as you rank up from E toward S and beyond.</p>
+    </div>
+    <div class="phone-frame"><img src="assets/img/shot_02.webp" alt="Dashboard with avatar, class and power level" loading="lazy"></div>
+  </div>
+
+  <div class="feature-row">
+    <div class="feature-text">
+      <h3 class="feature-title accent-gold">The Demon King's Spire</h3>
+      <p>A 100-floor tower of escalating battles. Your class passive and special ability — powered by your real training — decide how far you climb.</p>
+    </div>
+    <div class="phone-frame"><img src="assets/img/shot_07.webp" alt="Battle stats radar chart" loading="lazy"></div>
+  </div>
+
+  <div class="feature-row reverse">
+    <div class="feature-text">
+      <h3 class="feature-title accent-ember">Your Anime Avatar, Your Dragon</h3>
+      <p>Customize hair, auras, wings, spirit companions — even a dragon at your side. Your avatar grows more legendary as your rank climbs.</p>
+    </div>
+    <div class="phone-frame"><img src="assets/img/shot_05.webp" alt="Avatar customization screen" loading="lazy"></div>
+  </div>
+
+  <div class="feature-row">
+    <div class="feature-text">
+      <h3 class="feature-title accent-aqua">A Community of Heroes</h3>
+      <p>Share victories, talk anime or workouts, and battle friends up the leaderboard. Ranks from E to S keep every league competitive.</p>
+    </div>
+    <div class="phone-frame"><img src="assets/img/shot_04.webp" alt="Community feed with workout victories" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- ===== SCREENSHOT STRIP ===== -->
+<section class="gallery" id="gallery">
+  <h2 class="section-title">SEE IT IN <span class="accent-cyan">ACTION</span></h2>
+  <div class="gallery-scroll">
+    <div class="phone-frame small"><img src="assets/img/shot_02.webp" alt="Dashboard" loading="lazy"></div>
+    <div class="phone-frame small"><img src="assets/img/shot_03.webp" alt="Leaderboard" loading="lazy"></div>
+    <div class="phone-frame small"><img src="assets/img/shot_01.webp" alt="Workout tracking" loading="lazy"></div>
+    <div class="phone-frame small"><img src="assets/img/shot_05.webp" alt="Avatar profile" loading="lazy"></div>
+    <div class="phone-frame small"><img src="assets/img/shot_04.webp" alt="Community" loading="lazy"></div>
+    <div class="phone-frame small"><img src="assets/img/shot_07.webp" alt="Battle stats" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final-cta">
+  <h2 class="section-title">YOUR ASCENT <span class="accent-violet">STARTS NOW</span></h2>
+  <p class="section-sub">Free to download. Your first roll is waiting.</p>
+  <div class="store-buttons">
+    <a href="https://apps.apple.com/app/id6670243420" target="_blank" rel="noopener" aria-label="Download on the App Store">
+      <img src="assets/img/badge_app_store.svg" alt="Download on the App Store" class="badge">
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=com.anyflex.dev" target="_blank" rel="noopener" aria-label="Get it on Google Play">
+      <img src="assets/img/badge_google_play.png" alt="Get it on Google Play" class="badge badge-play">
+    </a>
+  </div>
+</section>
+
+<footer class="footer">
+  <nav class="footer-links">
+    <a href="https://doc-hosting.flycricket.io/aniflex-privacy-policy/f263b2aa-d999-4875-b977-6668cb789c30/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+    <a href="https://aniflexapp.com/termsofuse/" target="_blank" rel="noopener">Terms of Use</a>
+    <a href="mailto:support@aniflexapp.com">Support</a>
+  </nav>
+  <p class="footer-copy">© 2026 AniFlex Corp. All rights reserved.</p>
+  <p class="footer-fine">Apple and the Apple logo are trademarks of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC.</p>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
