@@ -6,18 +6,26 @@
 
   // ---------- Avatar builder ----------
   var AV = 'assets/avatar/';
+  // Shared hair dye set — all six exist on the app CDN for every style below.
+  var HAIR_COLORS = [
+    { key: 'black', css: '#1c1c1c' },
+    { key: 'blond', css: '#e3c36a' },
+    { key: 'blue', css: '#2b6bff' },
+    { key: 'red', css: '#d92b2b' },
+    { key: 'purple', css: '#9a4dff' },
+    { key: 'pink', css: '#f06bb8' }
+  ];
   var CONFIG = {
     male: {
       hair: [
         { key: 'samurai', label: 'Samurai' },
         { key: 'attack', label: 'Attack' },
-        { key: 'sharp_fade', label: 'Sharp Fade' }
+        { key: 'sharp_fade', label: 'Sharp Fade' },
+        { key: 'buzz_cut', label: 'Buzz Cut' },
+        { key: 'ponytail', label: 'Ponytail' },
+        { key: 'shaggy', label: 'Shaggy' }
       ],
-      hairColors: [
-        { key: 'black', css: '#1c1c1c' },
-        { key: 'blue', css: '#2b6bff' },
-        { key: 'red', css: '#d92b2b' }
-      ],
+      hairColors: HAIR_COLORS,
       top: 'male_top_tank_top.webp',
       bottom: 'male_bottom_shorts.webp',
       shoes: 'male_shoes_sneakers.webp',
@@ -29,13 +37,12 @@
       hair: [
         { key: 'high_ponytail', label: 'Ponytail' },
         { key: 'twin_braids', label: 'Twin Braids' },
-        { key: 'layered_bob', label: 'Bob' }
+        { key: 'layered_bob', label: 'Bob' },
+        { key: 'high_bun', label: 'High Bun' },
+        { key: 'curly_fro', label: 'Curls' },
+        { key: 'double_buns', label: 'Double Buns' }
       ],
-      hairColors: [
-        { key: 'black', css: '#1c1c1c' },
-        { key: 'blue', css: '#2b6bff' },
-        { key: 'pink', css: '#f06bb8' }
-      ],
+      hairColors: HAIR_COLORS,
       top: 'female_top_crop_top.webp',
       bottom: 'female_bottom_leggings.webp',
       shoes: 'female_shoes_sneakers.webp',
@@ -49,8 +56,9 @@
     { key: 'medium', css: '#c98d5f' },
     { key: 'deep', css: '#6e4530' }
   ];
+  var VISIBLE_HAIR = 3; // first N styles shown; rest live behind the "More" toggle
 
-  var state = { gender: 'male', skin: 'medium', hairStyle: 'samurai', hairColor: 'black' };
+  var state = { gender: 'male', skin: 'medium', hairStyle: 'samurai', hairColor: 'black', hairExpanded: false };
 
   var canvas = document.getElementById('avatar-canvas');
   var skinWrap = document.getElementById('skin-swatches');
@@ -91,13 +99,28 @@
     });
 
     hairWrap.innerHTML = '';
-    c.hair.forEach(function (h) {
+    var selIdx = 0;
+    c.hair.forEach(function (h, i) { if (h.key === state.hairStyle) selIdx = i; });
+    // Keep the panel open if the active style lives in the hidden group,
+    // so the active chip is never invisible.
+    var expanded = state.hairExpanded || selIdx >= VISIBLE_HAIR;
+    c.hair.forEach(function (h, idx) {
+      if (idx >= VISIBLE_HAIR && !expanded) return;
       var b = document.createElement('button');
       b.className = 'chip' + (h.key === state.hairStyle ? ' active' : '');
       b.textContent = h.label;
       b.onclick = function () { state.hairStyle = h.key; buildControls(); renderAvatar(); };
       hairWrap.appendChild(b);
     });
+    if (c.hair.length > VISIBLE_HAIR) {
+      var toggle = document.createElement('button');
+      toggle.className = 'chip more';
+      toggle.type = 'button';
+      toggle.textContent = expanded ? 'Less ▴' : 'More ▾';
+      toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      toggle.onclick = function () { state.hairExpanded = !expanded; buildControls(); };
+      hairWrap.appendChild(toggle);
+    }
 
     colorWrap.innerHTML = '';
     c.hairColors.forEach(function (hc) {
@@ -256,6 +279,28 @@
   document.getElementById('ascend-btn').addEventListener('click', function () {
     document.querySelector('.final-cta').scrollIntoView({ behavior: 'smooth' });
   });
+
+  // Clear the scan class once the sweep finishes so no band is ever left frozen,
+  // and so the next roll restarts it cleanly.
+  scan.addEventListener('animationend', function (e) {
+    if (e.animationName === 'scanSweep') scan.classList.remove('scanning');
+  });
+
+  // ---------- ambient parallax ----------
+  var ambient = document.getElementById('ambient');
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (ambient && !reduceMotion) {
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        ambient.style.transform = 'translateY(' + (window.pageYOffset * 0.06) + 'px)';
+        ticking = false;
+      });
+    }, { passive: true });
+  }
 
   // ---------- init ----------
   buildControls();
