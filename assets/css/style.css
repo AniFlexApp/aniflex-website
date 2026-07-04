@@ -503,6 +503,7 @@ section, header.hero { padding: 4.5rem 1.1rem; position: relative; }
 
 /* ===== CLASS CONSTELLATION (illustrative diagram) ===== */
 .class-showcase {
+  position: relative;
   max-width: 640px;
   margin: 4.2rem auto;
   text-align: center;
@@ -687,7 +688,14 @@ section, header.hero { padding: 4.5rem 1.1rem; position: relative; }
 .pet-copy p { color: var(--text-dim); font-size: 1.02rem; max-width: 520px; }
 .pet-tag { color: var(--violet); font-weight: 700; margin-top: 0.7rem; }
 
-/* ===== SCATTERED STICKERS (decorative, click-through) ===== */
+/* ===== SCATTERED STICKERS (decorative, click-through) =====
+   Each sticker anchors either to a whole short section (hero, forge, pet,
+   final-cta — all position:relative, single-screen tall, so a corner offset
+   never reaches the centered content) or to one specific .feature-row /
+   .class-showcase (also position:relative) so it lands in that row's own
+   outer gutter — never in the shared coordinate space of the giant
+   .features section, which is what let stickers collide with the section
+   title and with each other across the hero/forge seam. */
 .sticker {
   position: absolute;
   width: clamp(42px, 8.5vw, 64px);
@@ -699,22 +707,65 @@ section, header.hero { padding: 4.5rem 1.1rem; position: relative; }
   user-select: none;
   -webkit-user-drag: none;
 }
-.s-hero   { bottom: 3%;    right: 5%;  transform: rotate(8deg); }
-.s-forge  { top: 1.4rem;   right: 4%;  transform: rotate(-11deg); }
-.s-feat1  { top: 4.5rem;   right: 3%;  transform: rotate(9deg); }
-.s-feat2  { bottom: 4%;    left: 3%;   transform: rotate(-7deg); }
-.s-pet    { top: 8%;       right: 6%;  transform: rotate(12deg); }
-.s-cta    { top: 1.2rem;   left: 6%;   transform: rotate(-9deg); }
-/* On phones, keep stickers hugging the extreme edges and a touch smaller so
-   they sit in the margins beside the centered content, never over it. */
+
+/* Hero / Forge — opposite corners so the two no longer stack at the seam */
+.s-hero   { bottom: 3%;  left: 5%;   transform: rotate(-8deg); }
+.s-forge  { top: 1.4rem; right: 4%;  transform: rotate(-11deg); }
+
+/* Feature rows — sit in the row's own outer gutter (outside both grid
+   columns), vertically centered on that row only, well clear of its text
+   and phone/video frame regardless of column order. */
+.feature-row { position: relative; }
+.s-row1-l { top: 50%; left: -76px;  transform: translateY(-50%) rotate(-10deg); }
+.s-row1-r { top: 50%; right: -76px; transform: translateY(-50%) rotate(8deg); }
+.s-row2-l { top: 50%; left: -76px;  transform: translateY(-50%) rotate(9deg); }
+.s-row2-r { top: 50%; right: -76px; transform: translateY(-50%) rotate(-7deg); }
+.s-row3-l { top: 50%; left: -76px;  transform: translateY(-50%) rotate(-6deg); }
+.s-row3-r { top: 50%; right: -76px; transform: translateY(-50%) rotate(11deg); }
+.s-row4-l { top: 50%; left: -76px;  transform: translateY(-50%) rotate(7deg); }
+.s-row4-r { top: 50%; right: -76px; transform: translateY(-50%) rotate(-9deg); }
+.s-row5-l { top: 50%; left: -76px;  transform: translateY(-50%) rotate(-11deg); }
+.s-row5-r { top: 50%; right: -76px; transform: translateY(-50%) rotate(6deg); }
+
+/* Class constellation diagram — corners of its own 640px box, outside the
+   wheel, still inside the wider .features container. */
+.s-show-tl { top: -0.4rem; left: -3.4rem;  transform: rotate(-9deg); }
+.s-show-tr { top: -0.4rem; right: -3.4rem; transform: rotate(10deg); }
+.s-show-bl { bottom: -0.4rem; left: -3.4rem;  transform: rotate(8deg); }
+.s-show-br { bottom: -0.4rem; right: -3.4rem; transform: rotate(-10deg); }
+
+/* Streak pet + final CTA */
+.s-pet-l  { top: 8%;      left: 6%;   transform: rotate(-12deg); }
+.s-pet-r  { top: 8%;      right: 6%;  transform: rotate(12deg); }
+.s-cta-l  { top: 1.2rem;  left: 6%;   transform: rotate(-9deg); }
+.s-cta-r  { bottom: 1.2rem; right: 6%; transform: rotate(9deg); }
+
+/* On phones there's no side gutter around rows/showcase (they're full width),
+   so re-anchor every "beside content" sticker to sit just above or below
+   that block instead — same horizontal-separation trick that fixes the
+   hero/forge seam, applied locally to each row. Hero/forge/pet/cta keep
+   their corner placement (those sections have no side content to graze). */
 @media (max-width: 620px) {
   .sticker { width: clamp(38px, 12vw, 50px); opacity: 0.85; }
-  .s-hero  { bottom: 2%;  right: 3%; }
+  .s-hero  { bottom: 2%;  left: 3%; }
   .s-forge { top: 0.7rem; right: 2%; }
-  .s-feat1 { top: 3.4rem; right: 1%; }
-  .s-feat2 { bottom: 2%;  left: 1%; }
-  .s-pet   { top: 4%;     right: 3%; }
-  .s-cta   { top: 0.7rem; left: 2%; }
+
+  .s-row1-l, .s-row2-l, .s-row3-l, .s-row4-l, .s-row5-l {
+    top: -3.4rem; bottom: auto; left: 2%; right: auto; transform: none;
+  }
+  .s-row1-r, .s-row2-r, .s-row3-r, .s-row4-r, .s-row5-r {
+    top: auto; bottom: -3.4rem; left: auto; right: 2%; transform: none;
+  }
+
+  .s-show-tl { top: -3.2rem; left: 4%;  bottom: auto; right: auto; transform: none; }
+  .s-show-tr { top: -3.2rem; right: 4%; bottom: auto; left: auto;  transform: none; }
+  .s-show-bl { bottom: -3.2rem; left: 4%;  top: auto; right: auto; transform: none; }
+  .s-show-br { bottom: -3.2rem; right: 4%; top: auto; left: auto;  transform: none; }
+
+  .s-pet-l { top: 4%; left: 3%; }
+  .s-pet-r { top: 4%; right: 3%; }
+  .s-cta-l { top: 0.7rem; left: 2%; }
+  .s-cta-r { bottom: 0.7rem; right: 2%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
