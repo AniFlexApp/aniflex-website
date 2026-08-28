@@ -3,37 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AniFlex — Train Like an Anime Hero</title>
-<meta name="description" content="AniFlex turns your real workouts into an anime RPG. Roll your stats, forge your hero, climb the Demon King's Spire, and rank up from E to S.">
-<meta property="og:title" content="AniFlex — Train Like an Anime Hero">
-<meta property="og:description" content="Every rep earns power. Real workouts, anime RPG progression: 48 classes, a 100-floor tower, and a community of heroes.">
-<meta property="og:image" content="assets/img/shot_02.webp">
+<title>AniFlex — The Workout Is the Mission</title>
+<meta name="description" content="AniFlex is a fitness RPG set in the feudal village of Amahara. Your real workouts are the story: train under one of five Masters, awaken your Echo, and forge your legend one session at a time.">
+<meta property="og:title" content="AniFlex — The Workout Is the Mission">
+<meta property="og:description" content="A feudal-Japan anime fitness RPG. Real training drives the story: five Masters, a prestige sword line, and a village that needs you.">
+<meta property="og:image" content="assets/v3/scenes/opening.webp">
 <link rel="icon" type="image/png" href="assets/img/logo_white.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Exo+2:wght@300..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Yuji+Syuku&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<!-- Ambient depth layer: drifting accent orbs + faint starfield (purely decorative) -->
-<div class="ambient" id="ambient" aria-hidden="true">
-  <span class="orb orb-cyan"></span>
-  <span class="orb orb-violet"></span>
-  <span class="orb orb-ember"></span>
-  <div class="stars"></div>
+<!-- Ambient: drifting ember motes + ink wash vignette -->
+<div class="ambient" aria-hidden="true">
+  <div class="embers" id="embers"></div>
 </div>
 
 <!-- ===== HERO ===== -->
 <header class="hero" id="top">
-  <div class="hud-grid" aria-hidden="true"></div>
-  <img class="sticker s-hero" src="assets/stickers/levi.webp" alt="" aria-hidden="true">
+  <video class="hero-video" src="assets/v3/scenes/village.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <span class="vertical-kana hero-kana" aria-hidden="true">天原の村</span>
   <div class="hero-inner">
     <img class="hero-logo" src="assets/img/logo_white.png" alt="AniFlex logo">
-    <h1 class="hero-title">ANI<span class="accent-cyan">FLEX</span></h1>
-    <p class="hero-tag">Every rep earns power.</p>
-    <p class="hero-sub">The fitness RPG where real workouts level a real hero. Roll your stats, earn your class, and climb the Demon King's Spire — one training session at a time.</p>
-    <div class="store-buttons" id="store-buttons">
+    <h1 class="hero-title">ANIFLEX</h1>
+    <div class="hero-rule" aria-hidden="true"><span class="rule-diamond"></span></div>
+    <p class="hero-tag">The workout is the mission.</p>
+    <p class="hero-sub">A fitness RPG set in the feudal village of Amahara. Your real sets and reps drive the story — train under a Master, awaken the power sleeping in your body, and forge your legend one session at a time.</p>
+    <div class="store-buttons">
       <a href="https://apps.apple.com/us/app/aniflex-anime-fitness-app/id6670243420" target="_blank" rel="noopener" aria-label="Download on the App Store">
         <img src="assets/img/badge_app_store.svg" alt="Download on the App Store" class="badge">
       </a>
@@ -41,237 +40,150 @@
         <img src="assets/img/badge_google_play.png" alt="Get it on Google Play" class="badge badge-play">
       </a>
     </div>
-    <a class="hero-cta" href="#forge"><span class="tri">▼</span> Forge your hero below <span class="tri">▼</span></a>
+    <a class="hero-cta" href="#story">Enter Amahara <span class="cta-arrow">▾</span></a>
   </div>
 </header>
 
-<!-- ===== FORGE YOUR HERO ===== -->
-<section class="forge" id="forge">
-  <img class="sticker s-forge" src="assets/stickers/nezuko.webp" alt="" aria-hidden="true">
-  <h2 class="section-title"><span class="accent-violet">FORGE</span> YOUR HERO</h2>
-  <p class="section-sub">Build your avatar, then roll the same dice every new AniFlex hero rolls.</p>
-
-  <div class="forge-panel">
-    <div class="avatar-stage">
-      <div class="avatar-glow" aria-hidden="true"></div>
-      <div class="avatar-canvas" id="avatar-canvas" aria-label="Your avatar preview"></div>
-      <div class="scan-overlay" id="scan-overlay" aria-hidden="true"></div>
-    </div>
-
-    <div class="forge-controls">
-      <div class="control-row">
-        <span class="control-label">HERO</span>
-        <div class="toggle" id="gender-toggle" role="group" aria-label="Choose gender">
-          <button class="toggle-btn active" data-gender="male">MALE</button>
-          <button class="toggle-btn" data-gender="female">FEMALE</button>
-        </div>
-      </div>
-      <div class="control-row">
-        <span class="control-label">SKIN</span>
-        <div class="swatches" id="skin-swatches"></div>
-      </div>
-      <div class="control-row control-row-top">
-        <span class="control-label">HAIR</span>
-        <div class="chip-row" id="hair-styles"></div>
-      </div>
-      <div class="control-row">
-        <span class="control-label">COLOR</span>
-        <div class="swatches" id="hair-colors"></div>
-      </div>
-      <div class="control-row control-row-top">
-        <span class="control-label">TOP</span>
-        <div class="chip-row" id="top-styles"></div>
-      </div>
-      <div class="control-row control-row-top">
-        <span class="control-label">BOTTOM</span>
-        <div class="chip-row" id="bottom-styles"></div>
-      </div>
-      <div class="control-row control-row-top">
-        <span class="control-label">AURA</span>
-        <div class="chip-row" id="aura-styles"></div>
-      </div>
-      <div class="control-row control-row-top">
-        <span class="control-label">WINGS</span>
-        <div class="chip-row" id="wing-styles"></div>
-      </div>
-      <div class="control-row control-row-top">
-        <span class="control-label">BOLT</span>
-        <div class="chip-row" id="lightning-styles"></div>
-      </div>
-
-      <button class="roll-btn" id="roll-btn">
-        <span class="roll-btn-label">ROLL YOUR STATS</span>
-      </button>
+<!-- ===== STORY / PROLOGUE ===== -->
+<section class="story" id="story">
+  <div class="section-head reveal-on-scroll">
+    <span class="eyebrow">序章 — PROLOGUE</span>
+    <h2 class="section-title">You wake on the road, <em>robbed of everything.</em></h2>
+  </div>
+  <div class="story-grid">
+    <figure class="story-art frame-ink reveal-on-scroll">
+      <img src="assets/v3/scenes/village_on_fire.webp" alt="Smoke rising over the village of Amahara at dusk" loading="lazy">
+      <figcaption>Smoke over Amahara — the night everything begins.</figcaption>
+    </figure>
+    <div class="story-copy reveal-on-scroll">
+      <p>A traveler named <strong>Kiriyu</strong> finds you unconscious where the bandits left you. Before you can catch your breath, smoke rises over the village of <strong>Amahara</strong> — and the road pulls you straight into the fight.</p>
+      <p>On your final rep, something answers from inside you. The villagers have a name for it. The Masters have spent their lives learning to control it.</p>
+      <p class="story-echo">They call it <span class="echo-word">Echo</span> — a force every human carries, drawn out by physical effort. The body is the medium. Training is how it wakes.</p>
     </div>
   </div>
+</section>
 
-  <!-- Stat + class reveal -->
-  <div class="reveal hidden" id="reveal">
-    <div class="stat-grid" id="stat-grid"></div>
-    <div class="class-card" id="class-card">
-      <div class="class-card-corner tl"></div><div class="class-card-corner tr"></div>
-      <div class="class-card-corner bl"></div><div class="class-card-corner br"></div>
-      <p class="class-eyebrow">CLASS ASSIGNED</p>
-      <h3 class="class-name" id="class-name"></h3>
-      <p class="class-flavor" id="class-flavor"></p>
-      <div class="class-kit">
-        <div class="kit-block">
-          <p class="kit-label">PASSIVE — <span id="passive-name"></span></p>
-          <p class="kit-text" id="passive-text"></p>
-        </div>
-        <div class="kit-block">
-          <p class="kit-label kit-label-special">SPECIAL — <span id="special-name"></span></p>
-          <p class="kit-text" id="special-text"></p>
-        </div>
+<!-- ===== CORE LOOP ===== -->
+<section class="loop" id="loop">
+  <div class="section-head reveal-on-scroll">
+    <span class="eyebrow">任務 — THE CORE LOOP</span>
+    <h2 class="section-title">Every real rep is a <em>strike in the story.</em></h2>
+    <p class="section-sub">This isn't a game with a workout bolted on. The workout <strong>is</strong> the mission — your push-ups, squats and sets are the moves that carry each battle and each chapter forward.</p>
+  </div>
+  <div class="loop-grid">
+    <figure class="loop-art frame-ink reveal-on-scroll">
+      <img src="assets/v3/scenes/fight_scene.webp" alt="Battle scene on the road outside Amahara" loading="lazy">
+    </figure>
+    <div class="loop-points reveal-on-scroll">
+      <div class="loop-point">
+        <span class="lp-num">壱</span>
+        <div><h3>Take the mission</h3><p>Story missions are real training sessions. Exercises, sets and rests are the structure the tale unfolds through.</p></div>
       </div>
-      <p class="class-evolve" id="class-evolve"></p>
-      <div class="ascend">
-        <button class="ascend-btn" id="ascend-btn">BEGIN YOUR ASCENT</button>
-        <button class="reroll-btn" id="reroll-btn">↻ Roll again</button>
-        <p class="upsell">There are a lot more customization options within the app.</p>
+      <div class="loop-point">
+        <span class="lp-num">弐</span>
+        <div><h3>Train for real</h3><p>Your program is built around you — your equipment, your level, your goals — and prescribed by the Master you choose.</p></div>
+      </div>
+      <div class="loop-point">
+        <span class="lp-num">参</span>
+        <div><h3>The story answers</h3><p>Finish the work and the world moves: battles turn, bonds deepen, Amahara changes. Story is paced by completed workouts — never by a timer.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== FEATURES ===== -->
-<section class="features" id="features">
-  <h2 class="section-title">YOUR TRAINING IS THE <span class="accent-ember">STORYLINE</span></h2>
-
-  <div class="feature-row">
-    <img class="sticker s-row1-l" src="assets/stickers/saitama.webp" alt="" aria-hidden="true" loading="lazy">
-    <img class="sticker s-row1-r" src="assets/stickers/naruto.webp" alt="" aria-hidden="true" loading="lazy">
-    <div class="feature-text">
-      <h3 class="feature-title accent-cyan">Every Workout Moves You Forward</h3>
-      <p>Your dashboard is your hero sheet. Five battle stats — STR, AGL, POW, BAL, STA — and a single Power Level climb in real time as you train. It's earned in the gym, not bought.</p>
-    </div>
-    <div class="phone-frame"><img src="assets/img/shot_02.webp" alt="Dashboard with avatar, class and power level" loading="lazy"></div>
+<!-- ===== THE FIVE MASTERS ===== -->
+<section class="masters" id="masters">
+  <span class="vertical-kana masters-kana" aria-hidden="true">五人の師範</span>
+  <div class="section-head reveal-on-scroll">
+    <span class="eyebrow">師範 — THE FIVE MASTERS</span>
+    <h2 class="section-title">One dojo. Five Masters. <em>Choose whose path you walk.</em></h2>
+    <p class="section-sub">Each Master teaches a different discipline, carries a different weapon, and will shape both your training program and the fighter you become. Tap a Master to meet them.</p>
   </div>
 
-  <div class="feature-row reverse">
-    <img class="sticker s-row2-l" src="assets/stickers/startled.webp" alt="" aria-hidden="true" loading="lazy">
-    <img class="sticker s-row2-r" src="assets/stickers/zoro.webp" alt="" aria-hidden="true" loading="lazy">
-    <div class="feature-text">
-      <h3 class="feature-title accent-aqua">Every Rep Earns Power</h3>
-      <p>Log every set, rep, and RPE. Beat a previous best and the app fires off bonus Power on the spot — the numbers you put up are the numbers that level your hero.</p>
-    </div>
-    <div class="phone-frame"><img src="assets/img/shot_01.webp" alt="Workout tracking screen with live stat gains" loading="lazy"></div>
+  <div class="master-tabs reveal-on-scroll" role="tablist" aria-label="Choose a Master">
+    <!-- buttons injected by JS -->
   </div>
 
-  <!-- Class constellation — illustrative diagram, references the app's in-game Class Codex wheel -->
-  <div class="class-showcase">
-    <img class="sticker s-show-tl" src="assets/stickers/iroh.webp" alt="" aria-hidden="true" loading="lazy">
-    <img class="sticker s-show-tr" src="assets/stickers/shikamaru.webp" alt="" aria-hidden="true" loading="lazy">
-    <img class="sticker s-show-bl" src="assets/stickers/azure.webp" alt="" aria-hidden="true" loading="lazy">
-    <img class="sticker s-show-br" src="assets/stickers/gojo.webp" alt="" aria-hidden="true" loading="lazy">
-    <h3 class="feature-title accent-violet">48 Classes. One Is Yours.</h3>
-    <p class="showcase-lead">Your stat spread forges one of 16 base kits — each with its own passive and special ability, each evolving through three tiers as you rank up. Together they form the Class Constellation, with the balanced Adventurer at its core.</p>
-
-    <div class="class-wheel" role="img" aria-label="Radial diagram of the 16 AniFlex base class kits: 15 arranged around the balanced Adventurer core, grouped into five stat arcs — Strength, Agility, Power, Balance and Stamina.">
-      <div class="wheel-spokes" aria-hidden="true"></div>
-      <div class="wheel-ring" aria-hidden="true"></div>
-      <div class="wheel-core">
-        <span class="core-name">ADVENTURER</span>
-        <span class="core-tag">BALANCED CORE</span>
+  <div class="master-stage reveal-on-scroll">
+    <div class="master-scroll-frame">
+      <div class="scroll-roller top" aria-hidden="true"></div>
+      <div class="master-art-panel">
+        <img id="master-art" src="assets/v3/masters/goro.webp" alt="Goro Arakida, Master of Strength">
       </div>
-      <!-- STR arc -->
-      <span class="wheel-node stat-str pure" style="--i:0"><b>Brawler</b></span>
-      <span class="wheel-node stat-str" style="--i:1"><b>Skirmisher</b></span>
-      <span class="wheel-node stat-str" style="--i:2"><b>Sentinel</b></span>
-      <!-- AGL arc -->
-      <span class="wheel-node stat-agl pure" style="--i:3"><b>Runner</b></span>
-      <span class="wheel-node stat-agl" style="--i:4"><b>Blitzer</b></span>
-      <span class="wheel-node stat-agl" style="--i:5"><b>Windrunner</b></span>
-      <!-- POW arc -->
-      <span class="wheel-node stat-pow pure" style="--i:6"><b>Striker</b></span>
-      <span class="wheel-node stat-pow" style="--i:7"><b>Juggernaut</b></span>
-      <span class="wheel-node stat-pow" style="--i:8"><b>Crusher</b></span>
-      <!-- BAL arc -->
-      <span class="wheel-node stat-bal pure" style="--i:9"><b>Guardian</b></span>
-      <span class="wheel-node stat-bal" style="--i:10"><b>Flowfighter</b></span>
-      <span class="wheel-node stat-bal" style="--i:11"><b>Bulwark</b></span>
-      <!-- STA arc -->
-      <span class="wheel-node stat-sta pure" style="--i:12"><b>Survivor</b></span>
-      <span class="wheel-node stat-sta" style="--i:13"><b>Warbearer</b></span>
-      <span class="wheel-node stat-sta" style="--i:14"><b>Berserker</b></span>
+      <div class="scroll-roller bottom" aria-hidden="true"></div>
     </div>
-
-    <div class="wheel-legend" aria-hidden="true">
-      <span class="lg lg-str">STR</span>
-      <span class="lg lg-agl">AGL</span>
-      <span class="lg lg-pow">POW</span>
-      <span class="lg lg-bal">BAL</span>
-      <span class="lg lg-sta">STA</span>
-      <span class="lg-note">Filled = pure kit · outlined = hybrid</span>
+    <div class="master-info">
+      <span class="master-discipline" id="master-discipline">STRENGTH</span>
+      <h3 class="master-name" id="master-name">Goro Arakida</h3>
+      <p class="master-weapon" id="master-weapon">Weapon — Spiked Club</p>
+      <p class="master-philosophy" id="master-philosophy"></p>
+      <div class="master-titles">
+        <p class="titles-label">Titles earned on their path</p>
+        <div class="title-chips" id="master-titles"></div>
+      </div>
+      <p class="master-note">Train with your Master to raise your Bond from 1 to 10 — unlocking dialogue, secret techniques and the titles above along the way.</p>
     </div>
-    <p class="showcase-note">Illustrative diagram — not an in-app screenshot.</p>
-  </div>
-
-  <div class="feature-row">
-    <img class="sticker s-row3-l" src="assets/stickers/allmight.webp" alt="" aria-hidden="true" loading="lazy">
-    <img class="sticker s-row3-r" src="assets/stickers/koro.webp" alt="" aria-hidden="true" loading="lazy">
-    <div class="feature-text">
-      <h3 class="feature-title accent-gold">The Demon King's Spire</h3>
-      <p>A 100-floor tower of escalating battles. Your class passive and special ability — powered by your real training — decide how far you climb.</p>
-    </div>
-    <div class="video-frame">
-      <video src="assets/video/spire_castle.mp4" poster="assets/video/spire_castle_poster.webp"
-             autoplay muted loop playsinline preload="metadata"
-             aria-label="Animated Demon King's Spire castle"></video>
-    </div>
-  </div>
-
-  <div class="feature-row reverse">
-    <img class="sticker s-row4-l" src="assets/stickers/goku.webp" alt="" aria-hidden="true" loading="lazy">
-    <img class="sticker s-row4-r" src="assets/stickers/levi.webp" alt="" aria-hidden="true" loading="lazy">
-    <div class="feature-text">
-      <h3 class="feature-title accent-ember">Your Anime Avatar, Your Dragon</h3>
-      <p>Customize hair, auras, wings, spirit companions — even a dragon at your side. Your avatar grows more legendary as your rank climbs.</p>
-    </div>
-    <div class="phone-frame"><img src="assets/img/shot_05.webp" alt="Avatar customization screen" loading="lazy"></div>
-  </div>
-
-  <div class="feature-row">
-    <img class="sticker s-row5-l" src="assets/stickers/nezuko.webp" alt="" aria-hidden="true" loading="lazy">
-    <img class="sticker s-row5-r" src="assets/stickers/saitama.webp" alt="" aria-hidden="true" loading="lazy">
-    <div class="feature-text">
-      <h3 class="feature-title accent-cyan">A Community of Heroes</h3>
-      <p>Share victories, talk anime or workouts, and battle friends up the leaderboard. Ranks from E to S keep every league competitive.</p>
-    </div>
-    <div class="phone-frame"><img src="assets/img/shot_04.webp" alt="Community feed with workout victories" loading="lazy"></div>
   </div>
 </section>
 
-<!-- ===== STREAK PET ===== -->
-<section class="pet-section" id="pet">
-  <img class="sticker s-pet-l" src="assets/stickers/naruto.webp" alt="" aria-hidden="true">
-  <img class="sticker s-pet-r" src="assets/stickers/startled.webp" alt="" aria-hidden="true">
-  <div class="pet-inner">
-    <div class="pet-stage">
-      <div class="pet-shadow" aria-hidden="true"></div>
-      <img class="pet-egg" src="assets/img/pet_egg.webp" alt="A streak companion egg, rocking as if about to hatch">
+<!-- ===== SWORD PRESTIGE LINE ===== -->
+<section class="swords" id="swords">
+  <div class="section-head reveal-on-scroll">
+    <span class="eyebrow">刀 — THE BLADE LINE</span>
+    <h2 class="section-title">From rusted steel to <em>legend.</em></h2>
+    <p class="section-sub">Your first sword is a rusted practice blade. Twenty tiers stand between it and the weapons of legend — every one of them earned through training, never bought.</p>
+  </div>
+  <div class="sword-rail-wrap reveal-on-scroll">
+    <div class="sword-rail" id="sword-rail">
+      <!-- sword cards injected by JS -->
     </div>
-    <div class="pet-copy">
-      <h2 class="section-title" style="text-align:left">HATCH A <span class="accent-violet">COMPANION</span></h2>
-      <p>Every day you train feeds the creature waiting inside the shell. Hold your streak and it cracks, hatches, and evolves right alongside you — through stage after stage. Miss too many days and it goes dormant. Your consistency is the only thing that makes it grow.</p>
-      <p class="pet-tag">Keep the streak alive. See what it becomes.</p>
-    </div>
+  </div>
+</section>
+
+<!-- ===== STARTER KIT + HOUSE ===== -->
+<section class="kit" id="kit">
+  <div class="section-head reveal-on-scroll">
+    <span class="eyebrow">入門 — BECOME A DISCIPLE</span>
+    <h2 class="section-title">You don't just install an app. <em>You're given a life.</em></h2>
+    <p class="section-sub">Complete the prologue and Amahara takes you in: a Master, a program, a blade, and a run-down house to call your own.</p>
+  </div>
+  <div class="kit-grid reveal-on-scroll">
+    <div class="kit-item"><img src="assets/v3/kit/disciples_scroll.webp" alt="The Disciple's Scroll" loading="lazy"><h4>Disciple's Scroll</h4><p>Your quest log and record of every mission taken.</p></div>
+    <div class="kit-item"><img src="assets/v3/kit/rusted_training_sword.webp" alt="Rusted practice blade" loading="lazy"><h4>Rusted Practice Blade</h4><p>The first sword in the prestige line. Everyone starts here.</p></div>
+    <div class="kit-item"><img src="assets/v3/kit/gold_pouch.webp" alt="Pouch of 500 gold" loading="lazy"><h4>500 Gold</h4><p>Seed money for the Market and the Traveling Merchant.</p></div>
+    <div class="kit-item"><img src="assets/v3/kit/house_key.webp" alt="House key" loading="lazy"><h4>House Key</h4><p>A home in Amahara — humble now, but it grows with your story.</p></div>
+  </div>
+  <figure class="house-art frame-ink reveal-on-scroll">
+    <img src="assets/v3/scenes/player_house.webp" alt="Your starting house in Amahara" loading="lazy">
+    <figcaption>Your starting house. It won't stay this humble.</figcaption>
+  </figure>
+</section>
+
+<!-- ===== ECHO TEASER ===== -->
+<section class="echo" id="echo">
+  <div class="echo-bg" aria-hidden="true"></div>
+  <div class="echo-inner reveal-on-scroll">
+    <span class="eyebrow eyebrow-light">響 — ECHO</span>
+    <h2 class="section-title title-light">Power always <em>costs something.</em></h2>
+    <p class="echo-copy">Echo wakes through effort — but those who push it past what their mind can hold don't come back the same. The villagers whisper about what's left of them. You'll meet one soon enough.</p>
+    <p class="echo-tag">Train with discipline. Control is the whole art.</p>
   </div>
 </section>
 
 <!-- ===== FINAL CTA ===== -->
 <section class="final-cta">
-  <img class="sticker s-cta-l" src="assets/stickers/zoro.webp" alt="" aria-hidden="true">
-  <img class="sticker s-cta-r" src="assets/stickers/iroh.webp" alt="" aria-hidden="true">
-  <h2 class="section-title">YOUR ASCENT <span class="accent-violet">STARTS NOW</span></h2>
-  <p class="section-sub">Free to download. Your first roll is waiting.</p>
-  <div class="store-buttons">
-    <a href="https://apps.apple.com/us/app/aniflex-anime-fitness-app/id6670243420" target="_blank" rel="noopener" aria-label="Download on the App Store">
-      <img src="assets/img/badge_app_store.svg" alt="Download on the App Store" class="badge">
-    </a>
-    <a href="https://play.google.com/store/apps/details?id=com.anyflex.dev" target="_blank" rel="noopener" aria-label="Get it on Google Play">
-      <img src="assets/img/badge_google_play.png" alt="Get it on Google Play" class="badge badge-play">
-    </a>
+  <div class="reveal-on-scroll">
+    <div class="hanko" aria-hidden="true"><span>始</span></div>
+    <h2 class="section-title">Amahara is <em>waiting.</em></h2>
+    <p class="section-sub">Free to download. Kiriyu will find you on the road.</p>
+    <div class="store-buttons">
+      <a href="https://apps.apple.com/us/app/aniflex-anime-fitness-app/id6670243420" target="_blank" rel="noopener" aria-label="Download on the App Store">
+        <img src="assets/img/badge_app_store.svg" alt="Download on the App Store" class="badge">
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.anyflex.dev" target="_blank" rel="noopener" aria-label="Get it on Google Play">
+        <img src="assets/img/badge_google_play.png" alt="Get it on Google Play" class="badge badge-play">
+      </a>
+    </div>
   </div>
 </section>
 
