@@ -99,6 +99,7 @@ section, header, footer { position: relative; z-index: 2; }
 .frame-ink figcaption {
   font-size: .85rem; color: var(--text-dim); font-style: italic;
   padding: .7rem 1rem; border-top: 1px solid rgba(201,164,92,.2);
+  text-align: center;
 }
 
 /* scroll reveal */
