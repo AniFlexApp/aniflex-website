@@ -79,7 +79,7 @@ const SWORDS = [
   ['moon_lit_katana', 'Moonlit Katana', 'Tier 9'],
   ['oni_katana', 'Oni Katana', 'Tier 12'],
   ['dragon_fang', 'Dragon Fang', 'Tier 15'],
-  ['lightning_cutter', 'Diamond Blade', 'Tier 18'],
+  ['lightning_cutter', 'Thunder Katana', 'Tier 18'],
   ['divine_steel', 'Blade of Legend', 'Tier 20'],
 ];
 const rail = document.getElementById('sword-rail');
