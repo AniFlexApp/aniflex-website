@@ -18,12 +18,12 @@ const MASTERS = [
     titles: [['Bond 3', 'Steadfast'], ['Bond 7', 'Relentless'], ['Bond 10', 'Endless']],
   },
   {
-    id: 'shiori', name: 'Shiori Kuroha', stat: 'Agility', weapon: 'Kunai',
+    id: 'shiori', name: 'Shiori Kuroha', stat: 'Agility', weapon: 'Kunai', artTransform: 'translate(-5px, 5px)',
     philosophy: 'A mischievous former thief who fights on instinct. Shiori teaches you to never be where the opponent expects — reaction over rehearsal, always.',
     titles: [['Bond 3', 'Born of Instinct'], ['Bond 7', 'Untouchable'], ['Bond 10', 'The After-Image']],
   },
   {
-    id: 'takumi', name: 'Takumi Mikage', stat: 'Control', weapon: 'Staff',
+    id: 'takumi', name: 'Takumi Mikage', stat: 'Control', weapon: 'Staff', artTransform: 'scale(1.15)',
     philosophy: 'A precise perfectionist who wastes nothing. Takumi’s discipline is awareness and exact execution — a technique done sloppily is a technique not done at all.',
     titles: [['Bond 3', 'Centered'], ['Bond 7', 'Unwavering'], ['Bond 10', 'The Perfected']],
   },
@@ -42,6 +42,7 @@ function renderMaster(m) {
   setTimeout(() => {
     artEl.src = 'assets/v3/masters/' + m.id + '.webp';
     artEl.alt = m.name + ', Master of ' + m.stat;
+    artEl.style.transform = m.artTransform || '';
     artEl.onload = () => artEl.classList.remove('swapping');
   }, 200);
   discEl.textContent = m.stat.toUpperCase();
