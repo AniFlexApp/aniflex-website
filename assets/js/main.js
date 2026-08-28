@@ -80,7 +80,7 @@ const SWORDS = [
   ['moon_lit_katana', 'Moonlit Katana', 'Tier 12'],
   ['oni_katana', 'Oni Katana', 'Tier 15'],
   ['dragon_fang', 'Dragon Fang', 'Tier 18'],
-  ['legendary_sword', 'Heavenly Blade', 'Tier 20'],
+  ['legendary_sword', 'Blade of Legend', 'Tier 20'],
 ];
 const rail = document.getElementById('sword-rail');
 SWORDS.forEach(([file, name, tier], i) => {
