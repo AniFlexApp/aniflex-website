@@ -73,13 +73,13 @@ MASTERS.forEach(m => { const img = new Image(); img.src = 'assets/v3/masters/' +
 // ---------- Sword prestige rail ----------
 const SWORDS = [
   ['rusted_sword', 'Rusted Practice Blade', 'Tier 1'],
-  ['polished_sword', 'Polished Sword', 'Tier 3'],
+  ['samruai_blade', 'Samurai Blade', 'Tier 3'],
   ['folded_steel', 'Folded Steel', 'Tier 5'],
-  ['samruai_blade', 'Samurai Blade', 'Tier 7'],
-  ['cherry_steel', 'Cherry Steel', 'Tier 9'],
-  ['moon_lit_katana', 'Moonlit Katana', 'Tier 12'],
-  ['oni_katana', 'Oni Katana', 'Tier 15'],
-  ['dragon_fang', 'Dragon Fang', 'Tier 18'],
+  ['cherry_steel', 'Cherry Steel', 'Tier 7'],
+  ['moon_lit_katana', 'Moonlit Katana', 'Tier 9'],
+  ['oni_katana', 'Oni Katana', 'Tier 12'],
+  ['dragon_fang', 'Dragon Fang', 'Tier 15'],
+  ['diamond_blade', 'Diamond Blade', 'Tier 18'],
   ['legendary_sword', 'Blade of Legend', 'Tier 20'],
 ];
 const rail = document.getElementById('sword-rail');
