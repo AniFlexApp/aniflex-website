@@ -185,7 +185,7 @@ section, header, footer { position: relative; z-index: 2; }
 }
 .lore-card h3 { font-family: var(--serif); color: #cdb8ef; font-size: 1.2rem; margin-bottom: .6rem; }
 .lore-card p { color: var(--text-dim); font-size: .98rem; }
-.shape-row { display: flex; gap: .7rem; margin-top: 1rem; flex-wrap: wrap; }
+.shape-row { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin-top: 1rem; }
 .shape {
   font-family: var(--serif); font-size: .85rem; letter-spacing: .15em;
   padding: .5rem .9rem; border: 1px solid; text-align: center;
@@ -194,11 +194,13 @@ section, header, footer { position: relative; z-index: 2; }
 .shape.ideal { color: #9ec5ef; border-color: rgba(120,160,220,.45); }
 .shape.desire { color: #ef9e9e; border-color: rgba(220,110,110,.45); }
 .shape.trauma { color: #c5ef9e; border-color: rgba(150,200,110,.45); }
+.shape.experience { color: #efd49e; border-color: rgba(220,180,110,.45); }
 .stage-track {
-  display: flex; align-items: center; justify-content: center; gap: 1rem;
+  display: flex; align-items: flex-start; justify-content: center; gap: 1rem;
   flex-wrap: wrap; max-width: 980px; margin: 0 auto 2.6rem;
 }
-.stage { text-align: center; max-width: 190px; }
+.stage { text-align: center; width: 190px; }
+.stage-track .stage-arrow { margin-top: .1rem; }
 .stage-name {
   display: block; font-family: var(--serif); letter-spacing: .2em; font-size: .88rem;
   color: #b79ae0;
