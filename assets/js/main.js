@@ -23,7 +23,7 @@ const MASTERS = [
     titles: [['Bond 3', 'Born of Instinct'], ['Bond 7', 'Untouchable'], ['Bond 10', 'The After-Image']],
   },
   {
-    id: 'takumi', name: 'Takumi Mikage', stat: 'Control', weapon: 'Staff', artTransform: 'translate(7px, 0)',
+    id: 'takumi', name: 'Takumi Mikage', stat: 'Control', weapon: 'Staff', artTransform: 'translate(12px, 0)',
     philosophy: 'A precise perfectionist who wastes nothing. Takumi’s discipline is awareness and exact execution — a technique done sloppily is a technique not done at all.',
     titles: [['Bond 3', 'Centered'], ['Bond 7', 'Unwavering'], ['Bond 10', 'The Perfected']],
   },
