@@ -109,7 +109,14 @@ section, header, footer { position: relative; z-index: 2; }
 .hero { min-height: 100svh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
 .hero-video {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; z-index: 0;
+  z-index: 0;
+}
+.hero-video-blur { object-fit: cover; filter: blur(30px) brightness(.55); transform: scale(1.1); }
+.hero-video-main { object-fit: contain; }
+/* portrait-ish viewports: the frame nearly matches the 9:16 video, cover is no longer a heavy crop */
+@media (max-aspect-ratio: 4/5) {
+  .hero-video-blur { display: none; }
+  .hero-video-main { object-fit: cover; }
 }
 .hero-shade {
   position: absolute; inset: 0; z-index: 1;
