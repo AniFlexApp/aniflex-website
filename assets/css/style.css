@@ -299,6 +299,9 @@ section, header, footer { position: relative; z-index: 2; }
 .kit-item p { font-size: .9rem; color: var(--text-dim); }
 .house-art { max-width: 760px; margin: 0 auto; }
 .house-art figcaption { text-align: center; font-size: 1.15rem; padding: 1rem; }
+.house-stage { position: relative; overflow: hidden; }
+.house-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.house-stage img { position: relative; z-index: 1; }
 
 /* ---------- ECHO ---------- */
 .echo { position: relative; padding: 8rem 1.5rem; overflow: hidden; text-align: center; }
