@@ -85,7 +85,7 @@ const rail = document.getElementById('sword-rail');
 SWORDS.forEach(([file, name, tier], i) => {
   const card = document.createElement('div');
   card.className = 'sword-card' + (i === 0 ? ' first' : i === SWORDS.length - 1 ? ' last' : '');
-  card.innerHTML = '<img src="assets/v3/swords/' + file + '.webp" alt="' + name + '" loading="lazy">' +
+  card.innerHTML = '<div class="blade-panel"><img src="assets/v3/swords/' + file + '.webp" alt="' + name + '" loading="lazy"></div>' +
     '<span class="tier">' + tier + '</span><h4>' + name + '</h4>';
   rail.appendChild(card);
 });
