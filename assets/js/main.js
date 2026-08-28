@@ -23,7 +23,7 @@ const MASTERS = [
     titles: [['Bond 3', 'Born of Instinct'], ['Bond 7', 'Untouchable'], ['Bond 10', 'The After-Image']],
   },
   {
-    id: 'takumi', name: 'Takumi Mikage', stat: 'Control', weapon: 'Staff', artTransform: 'scale(1.15)',
+    id: 'takumi', name: 'Takumi Mikage', stat: 'Control', weapon: 'Staff',
     philosophy: 'A precise perfectionist who wastes nothing. Takumi’s discipline is awareness and exact execution — a technique done sloppily is a technique not done at all.',
     titles: [['Bond 3', 'Centered'], ['Bond 7', 'Unwavering'], ['Bond 10', 'The Perfected']],
   },
@@ -80,16 +80,32 @@ const SWORDS = [
   ['moon_lit_katana', 'Moonlit Katana', 'Tier 12'],
   ['oni_katana', 'Oni Katana', 'Tier 15'],
   ['dragon_fang', 'Dragon Fang', 'Tier 18'],
-  ['legendary_sword', 'Blade of Legend', 'Tier 20'],
+  ['legendary_sword', 'Heavenly Blade', 'Tier 20'],
 ];
 const rail = document.getElementById('sword-rail');
 SWORDS.forEach(([file, name, tier], i) => {
   const card = document.createElement('div');
   card.className = 'sword-card' + (i === 0 ? ' first' : i === SWORDS.length - 1 ? ' last' : '');
-  card.innerHTML = '<div class="blade-panel"><img src="assets/v3/swords/' + file + '.webp" alt="' + name + '" loading="lazy"></div>' +
+  card.innerHTML = '<img src="assets/v3/swords/' + file + '.webp" alt="' + name + '" loading="lazy">' +
     '<span class="tier">' + tier + '</span><h4>' + name + '</h4>';
   rail.appendChild(card);
 });
+
+// drag-to-scroll on the sword rail (scrollbar is hidden)
+const railWrap = document.querySelector('.sword-rail-wrap');
+if (railWrap) {
+  let down = false, startX = 0, startScroll = 0;
+  railWrap.addEventListener('pointerdown', e => {
+    down = true; startX = e.clientX; startScroll = railWrap.scrollLeft;
+    railWrap.classList.add('dragging'); railWrap.setPointerCapture(e.pointerId);
+  });
+  railWrap.addEventListener('pointermove', e => {
+    if (down) railWrap.scrollLeft = startScroll - (e.clientX - startX);
+  });
+  ['pointerup', 'pointercancel'].forEach(ev => railWrap.addEventListener(ev, () => {
+    down = false; railWrap.classList.remove('dragging');
+  }));
+}
 
 // ---------- Ambient embers ----------
 const emberWrap = document.getElementById('embers');
