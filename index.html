@@ -68,37 +68,61 @@
 <section class="echo-lore" id="echo-lore">
   <div class="section-head reveal-on-scroll">
     <span class="eyebrow eyebrow-violet">響 — THE POWER WITHIN ALL</span>
-    <h2 class="section-title">What is <em class="echo-em">Echo?</em></h2>
-    <p class="section-sub">Within every living being lies an infinite well of power known as Echo. Intent shapes it. Will directs it. You give it form.</p>
+    <h2 class="section-title">Your power is built out of <em class="echo-em">who you actually are.</em></h2>
+    <p class="section-sub">AniFlex turns your real workouts into an anime campaign. Physical effort draws out <strong>Echo</strong> — the power everyone in this world carries — and there are no classes to pick from. It takes its shape from four things: what you believe, what you want, what you survived and what you have actually done. <strong>Move the light to see how the mix changes the power.</strong></p>
   </div>
-  <div class="lore-grid reveal-on-scroll">
-    <div class="lore-card">
-      <h3>The Origin</h3>
-      <p>Echo is the raw inner power in all people. It has no shape and no morality, only potential. Physical effort draws it out; the body is the medium.</p>
+
+  <div class="echo-diagram-wrap reveal-on-scroll">
+    <div class="echo-diagram-stage">
+      <svg id="echoSvg" class="echo-svg" viewBox="0 0 560 500" role="img" aria-label="Interactive diagram of the four Echo poles: Ideal, Desire, Trauma and Experience. Drag the light to blend them.">
+        <polygon id="echoHighlight" class="echo-highlight" points=""></polygon>
+        <polygon class="echo-diamond-outer" points="280,50 460,240 280,430 100,240"></polygon>
+        <polygon class="echo-diamond-inner" points="280,145 375,240 280,335 185,240"></polygon>
+        <line class="echo-div" x1="280" y1="50" x2="280" y2="430"></line>
+        <line class="echo-div" x1="100" y1="240" x2="460" y2="240"></line>
+        <line class="echo-div" x1="370" y1="150" x2="190" y2="330"></line>
+        <line class="echo-div" x1="190" y1="150" x2="370" y2="330"></line>
+        <circle class="echo-center-dot" cx="280" cy="240" r="3"></circle>
+
+        <text class="echo-pole-label" x="280" y="34" text-anchor="middle" fill="#7ea8ff">Ideal</text>
+        <text class="echo-pole-label" x="476" y="244" text-anchor="start" fill="#e0708c">Desire</text>
+        <text class="echo-pole-label" x="280" y="458" text-anchor="middle" fill="#6fbf7a">Trauma</text>
+        <text class="echo-pole-label" x="84" y="244" text-anchor="end" fill="#d8a24a">Experience</text>
+
+        <text id="echoHint" class="echo-hint" x="280" y="308" text-anchor="middle">Drag the light</text>
+
+        <g id="echoRipples"></g>
+
+        <defs>
+          <filter id="echoBlur" x="-200%" y="-200%" width="500%" height="500%">
+            <feGaussianBlur stdDeviation="9"></feGaussianBlur>
+          </filter>
+        </defs>
+        <circle id="echoHalo" class="echo-halo" cx="332" cy="178" r="24" filter="url(#echoBlur)"></circle>
+        <circle id="echoLight" class="echo-light" cx="332" cy="178" r="7"></circle>
+      </svg>
     </div>
-    <div class="lore-card">
-      <h3>Shaped by the Self</h3>
-      <p>Echo takes shape from the user's inner world. No two forms are the same.</p>
-      <div class="shape-row">
-        <span class="shape ideal">IDEAL<small>conviction &amp; purpose</small></span>
-        <span class="shape desire">DESIRE<small>want, ambition, emotion</small></span>
-        <span class="shape trauma">TRAUMA<small>pain, fear, loss</small></span>
-        <span class="shape experience">EXPERIENCE<small>lived moments, memory</small></span>
+
+    <div class="echo-readout" id="echoReadout">
+      <span class="echo-readout-label">What that mix gives you</span>
+      <h3 class="echo-readout-title" id="echoTitle"></h3>
+      <p class="echo-readout-desc" id="echoDesc"></p>
+      <div class="echo-mix" id="echoMix"></div>
+      <div class="echo-risk">
+        <span class="echo-risk-label">If it runs unchecked</span>
+        <p class="echo-risk-desc" id="echoRisk"></p>
       </div>
     </div>
-    <div class="lore-card">
-      <h3>Manifestation</h3>
-      <p>Once shaped, Echo manifests as energy, abilities, weapons, even environments: a form unique to the user. It is you, made manifest.</p>
-    </div>
-    <div class="lore-card">
-      <h3>Control &amp; Risk</h3>
-      <p>The deeper your understanding of yourself, the more control you have. But Echo amplifies what is within, and power without understanding devours.</p>
-    </div>
   </div>
-  <div class="beyond-power reveal-on-scroll">
-    <p>Echo is more than strength. It is identity. It is expression. It is the truest form of you.</p>
-    <p class="beyond-line">"Many seek power. Few understand themselves. Those who do... transcend."</p>
+
+  <div class="echo-defs reveal-on-scroll">
+    <div class="echo-def"><span class="echo-def-name echo-c-ideal">Ideal</span><p>What you are convinced of, and would not trade away.</p></div>
+    <div class="echo-def"><span class="echo-def-name echo-c-desire">Desire</span><p>What you are reaching for and have not got yet.</p></div>
+    <div class="echo-def"><span class="echo-def-name echo-c-trauma">Trauma</span><p>What happened to you that you did not choose.</p></div>
+    <div class="echo-def"><span class="echo-def-name echo-c-experience">Experience</span><p>The hours already in your hands.</p></div>
   </div>
+
+  <p class="lore-quote reveal-on-scroll">Many seek power. Few understand themselves.</p>
 </section>
 
 <!-- ===== CORE LOOP ===== -->
