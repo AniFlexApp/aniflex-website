@@ -308,8 +308,11 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
     hint.style.opacity = '0';
   }
 
+  let moved = false;
+
   svg.addEventListener('pointerdown', e => {
     dragging = true;
+    moved = false;
     svg.classList.add('dragging');
     svg.setPointerCapture(e.pointerId);
     dismissHint();
@@ -319,6 +322,7 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
   });
   svg.addEventListener('pointermove', e => {
     if (!dragging) return;
+    moved = true;
     const pt = svgPoint(e.clientX, e.clientY);
     updateFromPosition(pt.x, pt.y);
   });
@@ -326,6 +330,7 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
     if (!dragging) return;
     dragging = false;
     svg.classList.remove('dragging');
+    if (!moved) return;
     const x = parseFloat(light.getAttribute('cx'));
     const y = parseFloat(light.getAttribute('cy'));
     spawnRipple(x, y);
