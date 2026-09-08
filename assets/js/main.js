@@ -286,7 +286,7 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
 
   function spawnRipple(x, y) {
     if (reduceMotion) return;
-    [0, 160, 320].forEach(delay => {
+    [0, 260, 520].forEach(delay => {
       setTimeout(() => {
         const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
         ring.setAttribute('class', 'echo-ripple');
@@ -294,8 +294,8 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
         ring.style.opacity = '.55';
         ripples.appendChild(ring);
         const anim = ring.animate(
-          [{ r: 8, opacity: .55 }, { r: 72, opacity: 0 }],
-          { duration: 1100, easing: 'ease-out' }
+          [{ r: 8, opacity: .55 }, { r: 120, opacity: 0 }],
+          { duration: 1700, easing: 'ease-out' }
         );
         anim.onfinish = () => ring.remove();
       }, delay);
@@ -315,6 +315,7 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
     dismissHint();
     const pt = svgPoint(e.clientX, e.clientY);
     updateFromPosition(pt.x, pt.y);
+    spawnRipple(pt.x, pt.y);
   });
   svg.addEventListener('pointermove', e => {
     if (!dragging) return;
