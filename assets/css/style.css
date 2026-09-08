@@ -227,7 +227,7 @@ section, header, footer { position: relative; z-index: 2; }
 .echo-mix-row { display: flex; align-items: center; gap: .7rem; margin-bottom: .55rem; }
 .echo-mix-name {
   font-family: var(--serif); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--text-dim); width: 82px; flex-shrink: 0;
+  color: var(--text-dim); width: 104px; flex-shrink: 0;
 }
 .echo-mix-track { flex: 1; height: 3px; background: #241a35; }
 .echo-mix-fill { height: 100%; background: var(--bar-color); }
