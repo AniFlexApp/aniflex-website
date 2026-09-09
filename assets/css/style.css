@@ -355,7 +355,15 @@ section, header, footer { position: relative; z-index: 2; }
   overflow: hidden;
 }
 /* Full-bleed edge to edge: no per-master nudging, no side gaps. */
-.master-art-panel img { display: block; width: 100%; height: auto; transition: opacity .3s; }
+.master-art-panel img {
+  display: block; width: 100%;
+  /* Shortened from the source's native ~941:1672 so the scroll isn't quite
+     so tall; a centered crop, not a per-master offset (all five are the
+     same source dimensions, so a symmetric crop keeps them consistent). */
+  aspect-ratio: 941 / 1500;
+  object-fit: cover; object-position: center center;
+  transition: opacity .3s;
+}
 .master-art-panel img.swapping { opacity: 0; }
 
 .master-info { max-width: 520px; }
