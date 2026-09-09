@@ -358,12 +358,15 @@ section, header, footer { position: relative; z-index: 2; }
 .master-art-panel img {
   display: block; width: 100%;
   /* Shortened from the source's native ~941:1672 so the scroll isn't quite
-     so tall; a centered crop, not a per-master offset (all five are the
-     same source dimensions, so a symmetric crop keeps them consistent). */
+     so tall. */
   aspect-ratio: 941 / 1500;
-  object-fit: cover; object-position: center center;
+  object-fit: cover;
+  /* Akane/Ryohei/Shiori/Takumi sit a little lower in the crop than Goro,
+     who's excluded below (his framing was already right). */
+  object-position: center 68%;
   transition: opacity .3s;
 }
+.master-art-panel img[src*="goro"] { object-position: center center; }
 .master-art-panel img.swapping { opacity: 0; }
 
 .master-info { max-width: 520px; }
