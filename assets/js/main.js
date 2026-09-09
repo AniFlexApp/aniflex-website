@@ -185,6 +185,7 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
   };
 
   const highlight = document.getElementById('echoHighlight');
+  const wisp = document.getElementById('echoWisp');
   const light = document.getElementById('echoLight');
   const halo = document.getElementById('echoHalo');
   const hint = document.getElementById('echoHint');
@@ -195,6 +196,9 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
   const riskEl = document.getElementById('echoRisk');
   const mixEl = document.getElementById('echoMix');
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    document.querySelectorAll('#echoWispFilter animate').forEach(a => a.remove());
+  }
 
   POLE_ORDER.forEach(p => {
     const row = document.createElement('div');
@@ -260,6 +264,8 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
 
     highlight.setAttribute('points', sectorPoints);
     highlight.style.color = POLES[state.pole].color;
+    wisp.setAttribute('points', sectorPoints);
+    wisp.style.color = POLES[state.pole].color;
 
     readout.style.setProperty('--pole-color', POLES[state.pole].color);
     titleEl.textContent = state.title;

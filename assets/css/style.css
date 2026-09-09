@@ -195,6 +195,11 @@ section, header, footer { position: relative; z-index: 2; }
 .echo-div { stroke: #251c36; }
 .echo-center-dot { fill: #3a2c55; }
 .echo-highlight { fill: currentColor; opacity: .07; pointer-events: none; }
+/* Wispy smoke-like aura over whichever sector is currently active, colored
+   to that sector's pole (currentColor set alongside the highlight). Sits
+   behind the highlight and the diamond lines, and billows past the sector's
+   edges via the turbulence filter's blur/displacement. */
+.echo-wisp { fill: currentColor; opacity: .22; mix-blend-mode: screen; pointer-events: none; }
 .echo-pole-label {
   font-family: var(--serif); font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
 }
@@ -205,12 +210,17 @@ section, header, footer { position: relative; z-index: 2; }
 .echo-halo { fill: #f0e7d9; opacity: .18; }
 .echo-light { fill: #f0e7d9; cursor: grab; }
 @media (prefers-reduced-motion: no-preference) {
-  .echo-highlight, .echo-hint { transition: opacity .3s ease; }
+  .echo-highlight, .echo-hint, .echo-wisp { transition: opacity .3s ease; }
   .echo-halo { animation: echo-pulse 3.4s ease-in-out infinite; }
+  .echo-wisp { animation: echo-wisp-breathe 5.5s ease-in-out infinite; }
 }
 @keyframes echo-pulse {
   0%, 100% { r: 24px; opacity: .18; }
   50% { r: 34px; opacity: .09; }
+}
+@keyframes echo-wisp-breathe {
+  0%, 100% { opacity: .16; }
+  50% { opacity: .3; }
 }
 .echo-ripple { fill: none; stroke: #f0e7d9; stroke-width: 1.5; }
 
