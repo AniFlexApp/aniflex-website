@@ -76,15 +76,26 @@
     <div class="echo-diagram-stage">
       <svg id="echoSvg" class="echo-svg" viewBox="0 0 560 500" role="img" aria-label="Interactive diagram of the four Echo poles: Ideal, Desire, Trauma and Experience. Drag the light to blend them.">
         <defs>
-          <filter id="echoWispFilter" x="-140%" y="-140%" width="380%" height="380%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.01 0.028" numOctaves="3" seed="7" result="echoWispNoise">
-              <animate attributeName="baseFrequency" dur="13s" values="0.01 0.028;0.016 0.045;0.008 0.02;0.01 0.028" repeatCount="indefinite"></animate>
+          <!-- Same wavy displacement in both, so the glow and the core line
+               warp in sync; only the blur amount differs (soft halo vs a
+               near-crisp neon core). -->
+          <filter id="echoNeonGlow" x="-60%" y="-60%" width="220%" height="220%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.03 0.09" numOctaves="2" seed="7" result="echoNeonNoise">
+              <animate attributeName="baseFrequency" dur="10s" values="0.03 0.09;0.045 0.13;0.03 0.09" repeatCount="indefinite"></animate>
             </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="echoWispNoise" scale="60" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
-            <feGaussianBlur stdDeviation="4"></feGaussianBlur>
+            <feDisplacementMap in="SourceGraphic" in2="echoNeonNoise" scale="10" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+            <feGaussianBlur stdDeviation="3.5"></feGaussianBlur>
+          </filter>
+          <filter id="echoNeonCore" x="-60%" y="-60%" width="220%" height="220%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.03 0.09" numOctaves="2" seed="7" result="echoNeonNoise">
+              <animate attributeName="baseFrequency" dur="10s" values="0.03 0.09;0.045 0.13;0.03 0.09" repeatCount="indefinite"></animate>
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="echoNeonNoise" scale="10" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+            <feGaussianBlur stdDeviation="0.5"></feGaussianBlur>
           </filter>
         </defs>
-        <polyline id="echoWisp" class="echo-wisp" points="" filter="url(#echoWispFilter)"></polyline>
+        <polygon id="echoWispGlow" class="echo-wisp-glow" points="" filter="url(#echoNeonGlow)"></polygon>
+        <polygon id="echoWispCore" class="echo-wisp-core" points="" filter="url(#echoNeonCore)"></polygon>
         <polygon id="echoHighlight" class="echo-highlight" points=""></polygon>
         <polygon class="echo-diamond-outer" points="280,50 460,240 280,430 100,240"></polygon>
         <polygon class="echo-diamond-inner" points="280,145 375,240 280,335 185,240"></polygon>

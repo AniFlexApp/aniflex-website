@@ -195,14 +195,19 @@ section, header, footer { position: relative; z-index: 2; }
 .echo-div { stroke: #251c36; }
 .echo-center-dot { fill: #3a2c55; }
 .echo-highlight { fill: currentColor; opacity: .07; pointer-events: none; }
-/* Wispy smoke-like aura hugging the OUTER edge of whichever sector is
-   active, colored to that sector's pole (currentColor set alongside the
-   highlight). Traced as a thick stroked line along the diamond's own edge
-   for that sector, not a fill, so the turbulence filter billows it around
-   the sector's boundary rather than clouding the sector's interior. */
-.echo-wisp {
-  fill: none; stroke: currentColor; stroke-width: 46; stroke-linecap: round;
+/* Thin neon outline around the FULL border of whichever cutout triangle is
+   active (center to each of its two outer points and back), colored to
+   that sector's pole. Two stroked copies of the same triangle: a soft
+   blurred glow underneath, a near-crisp core on top, both run through the
+   same small wavy displacement so the line looks hand-drawn/alive rather
+   than a rigid outline, without turning into a smoke cloud. */
+.echo-wisp-glow {
+  fill: none; stroke: currentColor; stroke-width: 3; stroke-linejoin: round;
   opacity: .55; mix-blend-mode: screen; pointer-events: none;
+}
+.echo-wisp-core {
+  fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round;
+  opacity: .95; mix-blend-mode: screen; pointer-events: none;
 }
 .echo-pole-label {
   font-family: var(--serif); font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
@@ -214,17 +219,18 @@ section, header, footer { position: relative; z-index: 2; }
 .echo-halo { fill: #f0e7d9; opacity: .18; }
 .echo-light { fill: #f0e7d9; cursor: grab; }
 @media (prefers-reduced-motion: no-preference) {
-  .echo-highlight, .echo-hint, .echo-wisp { transition: opacity .3s ease; }
+  .echo-highlight, .echo-hint, .echo-wisp-glow, .echo-wisp-core { transition: opacity .3s ease; }
   .echo-halo { animation: echo-pulse 3.4s ease-in-out infinite; }
-  .echo-wisp { animation: echo-wisp-breathe 5.5s ease-in-out infinite; }
+  .echo-wisp-glow { animation: echo-wisp-breathe 4s ease-in-out infinite; }
+  .echo-wisp-core { animation: echo-wisp-breathe 4s ease-in-out infinite .1s; }
 }
 @keyframes echo-pulse {
   0%, 100% { r: 24px; opacity: .18; }
   50% { r: 34px; opacity: .09; }
 }
 @keyframes echo-wisp-breathe {
-  0%, 100% { opacity: .42; }
-  50% { opacity: .68; }
+  0%, 100% { opacity: .5; }
+  50% { opacity: .8; }
 }
 .echo-ripple { fill: none; stroke: #f0e7d9; stroke-width: 1.5; }
 

@@ -185,7 +185,8 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
   };
 
   const highlight = document.getElementById('echoHighlight');
-  const wisp = document.getElementById('echoWisp');
+  const wispGlow = document.getElementById('echoWispGlow');
+  const wispCore = document.getElementById('echoWispCore');
   const light = document.getElementById('echoLight');
   const halo = document.getElementById('echoHalo');
   const hint = document.getElementById('echoHint');
@@ -197,7 +198,7 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
   const mixEl = document.getElementById('echoMix');
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion) {
-    document.querySelectorAll('#echoWispFilter animate').forEach(a => a.remove());
+    document.querySelectorAll('#echoNeonGlow animate, #echoNeonCore animate').forEach(a => a.remove());
   }
 
   POLE_ORDER.forEach(p => {
@@ -251,7 +252,7 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
     const dx = x - CENTER.x, dy = y - CENTER.y;
     const dist = Math.hypot(dx, dy);
 
-    let state, sectorPoints = '', edgePoints = '';
+    let state, sectorPoints = '';
     if (dist < 34) {
       state = CENTER_STATE;
     } else {
@@ -259,16 +260,17 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
       const idx = Math.floor(deg / 45) % 8;
       state = SECTORS[idx];
       const p0 = BOUNDARY[idx], p1 = BOUNDARY[(idx + 1) % 8];
+      // Every cutout triangle's full border: center to each outer point and
+      // back (polygon auto-closes), since every sector touches the center.
       sectorPoints = CENTER.x + ',' + CENTER.y + ' ' + p0[0] + ',' + p0[1] + ' ' + p1[0] + ',' + p1[1];
-      // Just the sector's outer edge (the diamond's own side for this
-      // eighth), so the wisp traces around the sector rather than filling it.
-      edgePoints = p0[0] + ',' + p0[1] + ' ' + p1[0] + ',' + p1[1];
     }
 
     highlight.setAttribute('points', sectorPoints);
     highlight.style.color = POLES[state.pole].color;
-    wisp.setAttribute('points', edgePoints);
-    wisp.style.color = POLES[state.pole].color;
+    wispGlow.setAttribute('points', sectorPoints);
+    wispGlow.style.color = POLES[state.pole].color;
+    wispCore.setAttribute('points', sectorPoints);
+    wispCore.style.color = POLES[state.pole].color;
 
     readout.style.setProperty('--pole-color', POLES[state.pole].color);
     titleEl.textContent = state.title;
