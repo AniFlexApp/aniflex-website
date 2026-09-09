@@ -363,7 +363,7 @@ section, header, footer { position: relative; z-index: 2; }
   object-fit: cover;
   /* Akane/Ryohei/Shiori/Takumi sit a little lower in the crop than Goro,
      who's excluded below (his framing was already right). */
-  object-position: center 68%;
+  object-position: center top;
   transition: opacity .3s;
 }
 .master-art-panel img[src*="goro"] { object-position: center center; }
