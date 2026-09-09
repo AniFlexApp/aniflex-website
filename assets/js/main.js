@@ -251,7 +251,7 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
     const dx = x - CENTER.x, dy = y - CENTER.y;
     const dist = Math.hypot(dx, dy);
 
-    let state, sectorPoints = '';
+    let state, sectorPoints = '', edgePoints = '';
     if (dist < 34) {
       state = CENTER_STATE;
     } else {
@@ -260,11 +260,14 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
       state = SECTORS[idx];
       const p0 = BOUNDARY[idx], p1 = BOUNDARY[(idx + 1) % 8];
       sectorPoints = CENTER.x + ',' + CENTER.y + ' ' + p0[0] + ',' + p0[1] + ' ' + p1[0] + ',' + p1[1];
+      // Just the sector's outer edge (the diamond's own side for this
+      // eighth), so the wisp traces around the sector rather than filling it.
+      edgePoints = p0[0] + ',' + p0[1] + ' ' + p1[0] + ',' + p1[1];
     }
 
     highlight.setAttribute('points', sectorPoints);
     highlight.style.color = POLES[state.pole].color;
-    wisp.setAttribute('points', sectorPoints);
+    wisp.setAttribute('points', edgePoints);
     wisp.style.color = POLES[state.pole].color;
 
     readout.style.setProperty('--pole-color', POLES[state.pole].color);

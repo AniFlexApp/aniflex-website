@@ -76,15 +76,15 @@
     <div class="echo-diagram-stage">
       <svg id="echoSvg" class="echo-svg" viewBox="0 0 560 500" role="img" aria-label="Interactive diagram of the four Echo poles: Ideal, Desire, Trauma and Experience. Drag the light to blend them.">
         <defs>
-          <filter id="echoWispFilter" x="-80%" y="-80%" width="260%" height="260%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.014 0.05" numOctaves="2" seed="7" result="echoWispNoise">
-              <animate attributeName="baseFrequency" dur="16s" values="0.014 0.05;0.02 0.07;0.014 0.05" repeatCount="indefinite"></animate>
+          <filter id="echoWispFilter" x="-140%" y="-140%" width="380%" height="380%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.01 0.028" numOctaves="3" seed="7" result="echoWispNoise">
+              <animate attributeName="baseFrequency" dur="13s" values="0.01 0.028;0.016 0.045;0.008 0.02;0.01 0.028" repeatCount="indefinite"></animate>
             </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="echoWispNoise" scale="34" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
-            <feGaussianBlur stdDeviation="7"></feGaussianBlur>
+            <feDisplacementMap in="SourceGraphic" in2="echoWispNoise" scale="60" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+            <feGaussianBlur stdDeviation="4"></feGaussianBlur>
           </filter>
         </defs>
-        <polygon id="echoWisp" class="echo-wisp" points="" filter="url(#echoWispFilter)"></polygon>
+        <polyline id="echoWisp" class="echo-wisp" points="" filter="url(#echoWispFilter)"></polyline>
         <polygon id="echoHighlight" class="echo-highlight" points=""></polygon>
         <polygon class="echo-diamond-outer" points="280,50 460,240 280,430 100,240"></polygon>
         <polygon class="echo-diamond-inner" points="280,145 375,240 280,335 185,240"></polygon>
